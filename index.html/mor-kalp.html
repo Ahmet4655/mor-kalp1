@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mor Kalp</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #fdf0ff;
+        overflow: hidden;
+        font-family: "Arial", sans-serif;
+      }
+
+      /* Ortadaki büyük emoji kalp */
+      .center-heart {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 100px;
+        animation: glow 1.5s ease-in-out infinite alternate;
+        filter: drop-shadow(0 0 10px #a64ca6);
+      }
+
+      @keyframes glow {
+        from {
+          filter: drop-shadow(0 0 0px #a64ca6);
+        }
+        to {
+          filter: drop-shadow(0 0 25px #e0b3ff);
+        }
+      }
+
+      /* Düşen kalpler */
+      .falling-heart {
+        position: absolute;
+        top: -50px;
+        color: transparent;
+        animation: fall linear forwards;
+        user-select: none;
+      }
+
+      .falling-heart::before {
+        content: "💜";
+        display: inline-block;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(110vh);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Ortadaki büyük emoji kalp -->
+    <div class="center-heart">💜</div>
+
+    <script>
+      function createFallingHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("falling-heart");
+
+        // Rastgele konum, boyut ve animasyon süresi
+        heart.style.left = Math.random() * 100 + "vw";
+        const size = Math.random() * 16 + 16; // 16px - 32px
+        heart.style.fontSize = size + "px";
+        const duration = (Math.random() * 3 + 3).toFixed(2); // 3 - 6 sn
+        heart.style.animationDuration = duration + "s";
+
+        document.body.appendChild(heart);
+
+        // 7 saniye sonra kalbi DOM'dan sil
+        setTimeout(() => {
+          heart.remove();
+        }, 7000);
+      }
+
+      // Her 200ms'de bir yeni kalp oluştur (yoğun kalp yağmuru 💜)
+      setInterval(createFallingHeart, 200);
+    </script>
+  </body>
+</html>
